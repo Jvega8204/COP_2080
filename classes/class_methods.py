@@ -5,7 +5,7 @@ class book:
         self.title = title
         self.author = author
         self.year = year
-        Book.total_books += 1
+        book.total_books += 1
 
     
     # I want to create a method which will work with total_books
@@ -19,9 +19,9 @@ class book:
     def from_dict(cls, data: dict):
         return cls(data["title"], data["author"], data["year"])
     
-book1 = Book("Python 101", "J.Doe", 2023)
+book1 = book("Python 101", "J.Doe", 2023)
 data = {"title": "Learning Python", "author": "John smith", "year": 2020}
-book2 = Book.from_dict(data)
+book2 = book.from_dict(data)
 
 print (book1)
 print (book2)
