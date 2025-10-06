@@ -6,7 +6,10 @@ class student:
     def __str__(self):
         return f"Name: {self.name}, ID: {self.student_id}, Major: {self.major}"
 class UndegraduateStudent:
-    pass 
+    #Overriding of methods
+    def __init__(self, name, student_id, major):
+        student.__init__(name, student_id, major)
+        self.year = year
 
 if __name__ == "__main__":
     student = student("Jack", "U1010", "Computer Science")
