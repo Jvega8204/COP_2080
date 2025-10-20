@@ -1,0 +1,13 @@
+{
+    "name": "Bob",
+    "address": "1014 Orange st",
+    "Languages": [
+        "Sql",
+        "java",
+        "fortran"
+    ],
+    "Hello": {
+        "class": "Hello",
+        "message": "Hello"
+    }
+}
