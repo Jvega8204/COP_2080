@@ -11,9 +11,6 @@ def greet():
     msg = f"Hello, {name or "Stranger"}"
     ui.notify(msg)  #creates a popup
 
-input_field = ui.input("Enter your name")
-ui.button("Greet me!", color = "green", on_click = greet)
-
 #-----------------Greeting------------
 
 #-----------------Counter------------
@@ -22,10 +19,9 @@ ui.button("Greet me!", color = "green", on_click = greet)
 class State:
     count = 0 
 
-count_label = ui.label("Count: 0 ")
 
 def add_one():
-    State.count += 1
+    State.count += slider.value
     count_label.text = f"Count: {State.count}"
 #create a reset button
 def reset(): 
@@ -43,12 +39,15 @@ with ui.row():
             ui.button("Greet me!", color = "green", on_click = greet)
 
         with ui.card().classes("h-65 w-full"): 
-            count_label = ui.label("Count: 0 ")
+            count_label = ui.label("Count: 0 ").classes("text-lg")
             with ui.row():
                 ui.button("Add one", color= "blue", on_click = add_one)
                 ui.button("Reset", color = "red", on_click= reset )
+            label_slider = ui.label("step: 5").classes("text-lg")
+            slider = ui.slider(min=1, max = 10, value = 5)
+            slider.on("update:model-value", lambda: label_slider.set_text(f"Step: {slider.value}"))
 
-#create a row 
-
+ui.switch ("Darkmode", 
+        on_change=lambda e: ui.dark_mode().enable() if e.value else ui.dark_mode().disable())
 
 ui.run(title = "Intro to NiceGUI",)
