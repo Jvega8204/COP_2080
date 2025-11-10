@@ -52,7 +52,19 @@ with ui.row():
         ui.label("+").classes("text-lg")
         n2 = ui.number("Number 2",value = 0).classes("w-24")
         ui.label("=").classes("text-lg")
-        ui.label(f"{n1}+{n2}")
+        result = ui.label("0").classes("text-lg")
+    with ui.row():
+        n1 = ui.number("Number 1",value = 0).classes("w-24")
+        ui.label("-").classes("text-lg")
+        n2 = ui.number("Number 2",value = 0).classes("w-24")
+        ui.label("=").classes("text-lg")
+        result = ui.label("0").classes("text-lg")
+    with ui.row():
+        n1 = ui.number("Number 1",value = 0).classes("w-24")
+        ui.label("*").classes("text-lg")
+        n2 = ui.number("Number 2",value = 0).classes("w-24")
+        ui.label("=").classes("text-lg")
+        result = ui.label("0").classes("text-lg")
 
 
 
