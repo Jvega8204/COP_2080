@@ -1,0 +1,22 @@
+git init - initializes a new git repository 
+
+git status - show statues of changes
+
+git add - add files to the changing staging area
+
+git commit - save changes
+
+git log - shows commit history
+
+git diff <file> - shows unstaged changes 
+
+git restore <file> - discard changes for a file 
+
+git restore --staged <file> - removes a file from the staging area (git add)
+
+git branch - list all branches 
+git branch <name> - create a new branch
+git checkout <name> - switches to branch <name> 
+git checkout -b <name> -  creates a branch <name> and changes to the new branch
+git merge name - merge another branch checked out branch 
+git branch -d <name> - delete a branch(safe)
