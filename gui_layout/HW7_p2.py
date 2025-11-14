@@ -1,6 +1,6 @@
 from nicegui import ui
 from random import shuffle
-
+# TODO 1: Create list of 8 unique emojis, duplicate, and shuffle
 EMOJIS = []
 buttons = []
 opened = []
@@ -13,20 +13,20 @@ def restart_game():
     matched.clear()
 
     EMOJIS = ['🍎', '🐶', '🚀', '🎵', '🔥', '🍩', '🧸', '🌟']
-    EMOJIS = EMOJIS * 2
+    EMOJIS = EMOJIS * 2 #for 2 to match emojis
     shuffle(EMOJIS)
 
     # reset buttons
     for b in buttons:
         b.text = '?'
 
-
+# TODO 2: Write function to flip non-matching cards back
 def reset_pair(i, j):
     buttons[i].text = '?'
-    buttons[j].text = '?'
+    buttons[j].text = '?'  
     opened.clear()
 
-
+# TODO 3: Write click handler
 def handle_click(idx):
     """Logic for clicking a card."""
     # if its already flipped then wont reflip card
@@ -59,18 +59,19 @@ def handle_click(idx):
 win_dialog = ui.dialog()
 with win_dialog:
     with ui.card():
-        ui.label(' YOU WIN! ').classes('text-2xl font-bold text-green-600')
+        ui.label(' YOU WIN! ').classes('text-2xl font-bold text-lg')
         ui.button('Close', on_click=win_dialog.close)
 
 
 # restart button and title
 with ui.row().classes('items-center mb-4'):
-    ui.label('Memory Game').classes('text-2xl font-bold')
+    ui.label('Memory Game').classes('text-lg font-bold')
     ui.button('Restart', on_click=restart_game, color='red')
 
 
 #Build 4×4 Grid of Buttons
 with ui.grid(columns=4):
+    # TODO 4: Create 16 buttons
     for i in range(16):
         b = ui.button('?', on_click=lambda _, idx=i: handle_click(idx))
         b.classes('w-16 h-16 text-3xl')
