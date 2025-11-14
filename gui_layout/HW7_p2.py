@@ -1,32 +1,43 @@
 from nicegui import ui
 from random import shuffle
 
-# TODO 1: Create list of 8 unique emojis, duplicate, and shuffle
-EMOJIS = ['🍎', '🐶', '🚀', '🎵', '🔥', '🍩', '🧸', '🌟']
-EMOJIS = EMOJIS * 2   # 2 for the matching pair
-shuffle(EMOJIS)
-
+EMOJIS = []
 buttons = []
-opened = []  
-matched = [] 
+opened = []
+matched = []
 
-# TODO 2: Write function to flip non-matching cards back
+def restart_game():
+    global EMOJIS, opened, matched
+
+    opened.clear()
+    matched.clear()
+
+    EMOJIS = ['🍎', '🐶', '🚀', '🎵', '🔥', '🍩', '🧸', '🌟']
+    EMOJIS = EMOJIS * 2
+    shuffle(EMOJIS)
+
+    # reset buttons
+    for b in buttons:
+        b.text = '?'
+
+
 def reset_pair(i, j):
     buttons[i].text = '?'
     buttons[j].text = '?'
     opened.clear()
 
-# TODO 3: Write click handler
+
 def handle_click(idx):
-    # check if already flipped or matched
+    """Logic for clicking a card."""
+    # if its already flipped then wont reflip card
     if idx in matched or idx in opened:
         return
 
-    # flip chosen card
+    # flip
     buttons[idx].text = EMOJIS[idx]
     opened.append(idx)
 
-    # check if match
+    # check if two cards get flipped
     if len(opened) == 2:
         i, j = opened
 
@@ -35,18 +46,37 @@ def handle_click(idx):
             matched.append(j)
             opened.clear()
 
-            # check if win
+            # check if the player won
             if len(matched) == 16:
-                ui.notify('You Win! 🎉', color='green')
+                win_dialog.open()
+
         else:
-            # if not a match, flip back after delay
+            # if didnt match then flip over again
             ui.timer(0.5, lambda: reset_pair(i, j), once=True)
 
-# Build 4x4 grid
+
+# popup when when player wins
+win_dialog = ui.dialog()
+with win_dialog:
+    with ui.card():
+        ui.label(' YOU WIN! ').classes('text-2xl font-bold text-green-600')
+        ui.button('Close', on_click=win_dialog.close)
+
+
+# restart button and title
+with ui.row().classes('items-center mb-4'):
+    ui.label('Memory Game').classes('text-2xl font-bold')
+    ui.button('Restart', on_click=restart_game, color='red')
+
+
+#Build 4×4 Grid of Buttons
 with ui.grid(columns=4):
     for i in range(16):
         b = ui.button('?', on_click=lambda _, idx=i: handle_click(idx))
-        b.classes('w-16 h-16 text-3xl')   # ← FIXED: moved classes() here
+        b.classes('w-16 h-16 text-3xl')
         buttons.append(b)
+
+# start game
+restart_game()
 
 ui.run(title='Memory Game')
